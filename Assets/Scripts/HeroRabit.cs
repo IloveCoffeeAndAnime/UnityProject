@@ -52,8 +52,8 @@ public class HeroRabit : MonoBehaviour {
 	}
 
 	void checkGrounding(){
-		Vector3 from = transform.position + Vector3.up * 0.3f;
-		Vector3 to = transform.position + Vector3.down * 0.1f;
+		Vector3 from = this.transform.position + Vector3.up * 0.3f;
+		Vector3 to = this.transform.position + Vector3.down * 0.1f;
 		int layer_id = 1 << LayerMask.NameToLayer ("Ground");
 		RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
 		if(hit) {

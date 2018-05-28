@@ -14,7 +14,7 @@ public class DeathHere : MonoBehaviour {
 		
 	}
 
-	void onTriggerEnter2D(Collider2D collider){
+	void OnTriggerEnter2D(Collider2D collider){
 		HeroRabit rabit = collider.GetComponent<HeroRabit> ();
 		if (rabit != null) {
 			LevelController.current.OnRabitDeath (rabit);
