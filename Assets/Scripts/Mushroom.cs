@@ -16,5 +16,8 @@ public class Mushroom : Collectable {
 
 	protected override void OnRabitHit(HeroRabit rabit) {
 		this.CollectedHide ();
+		if (!rabit.IsBig) {
+			rabit.BecomeBigger ();
+		}
 	}
 }

@@ -15,15 +15,15 @@ public class Bomb : Collectable {
 	}
 
 	protected override void OnRabitHit(HeroRabit rabit) {
-		this.CollectedHide ();
-		//Animator animator = rabit.GetComponent<Animator> ();
-		//animator.SetTrigger("reset");
-		rabit.DieWithAnimation();
-		//animator.SetTrigger("reset");
-		//if (animator.GetCurrentAnimatorStateInfo (0).IsName ("DeathAnimation")) {
-			//LevelController.current.OnRabitDeath (rabit);
-		//}
-		//animator.SetBool ("death", true);
+		if (!rabit.SuperRabit) {
+			this.CollectedHide ();
+			if (rabit.IsBig) {
+				rabit.BecomeSmaller ();
+				rabit.SuperRabit = true;
+			} else {
+				rabit.DieWithAnimation();
+			}
+		}
 	}
 
 

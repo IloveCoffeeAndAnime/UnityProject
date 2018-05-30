@@ -7,24 +7,43 @@ public class HeroRabit : MonoBehaviour {
 	public float speed = 3;
 	Rigidbody2D myBody = null;
 	Animator animator = null;
+	SpriteRenderer spriteRenderer;
+	//Transform myTransform;
 	Transform heroParent = null;
 	bool isGrounded = false;
 	bool JumpActive = false;
+	bool isBig = false;
+	bool isSuperRabit = false;
 	float JumpTime = 0f;
 	public float MaxJumpTime = 2f;
 	public float JumpSpeed = 2f;
+	float MaxSuperPowerTime = 4f;
+	float SuperPowerTimer = 0;
 
+	public bool IsBig { get{ return isBig;} private set{ isBig = value;}}
+	public bool SuperRabit{ get { return isSuperRabit; } set{isSuperRabit = value; }}
 	// Use this for initialization
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
 		animator = GetComponent<Animator> ();
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 		this.heroParent = this.transform.parent;
 		LevelController.current.setStartPosition (transform.position);
+		this.SuperPowerTimer = this.MaxSuperPowerTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (this.SuperRabit) {
+			SuperPowerTimer -= Time.deltaTime;
+			if (this.SuperPowerTimer >= 0) {
+				spriteRenderer.color = Color.red;
+			} else {
+				spriteRenderer.color = Color.white;
+				this.SuperPowerTimer = this.MaxSuperPowerTime;
+				this.SuperRabit = false;
+			}
+		}
 	}
 
 	void FixedUpdate()
@@ -100,20 +119,24 @@ public class HeroRabit : MonoBehaviour {
 
 	static void SetNewParent(Transform obj, Transform new_parent) {
 		if(obj.transform.parent != new_parent) {
-			//Засікаємо позицію у Глобальних координатах
 			Vector3 pos = obj.transform.position;
-			//Встановлюємо нового батька
 			obj.transform.parent = new_parent;
-			//Після зміни батька координати кролика зміняться
-			//Оскільки вони тепер відносно іншого об’єкта
-			//повертаємо кролика в ті самі глобальні координати
 			obj.transform.position = pos;
 		}
 	}
 
+	public void BecomeBigger(){
+		this.transform.localScale = new Vector3 (2, 2, 1);
+		this.isBig = true;
+	}
+
+	public void BecomeSmaller(){
+		this.transform.localScale = new Vector3 (1, 1, 1);
+		this.isBig = false;
+	}
+		
 	public void DieWithAnimation(){
 		animator.SetBool("death",true);
-		//Debug.Log (animator.GetCurrentAnimatorStateInfo (0).length);
 		IEnumerator corountine = WaitForDeathAnimation ();
 		StartCoroutine(corountine);
 	}
