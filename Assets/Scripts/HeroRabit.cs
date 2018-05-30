@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroRabit : MonoBehaviour {
+	
+	public static HeroRabit lastRabit = null;
 
 	public float speed = 3;
 	Rigidbody2D myBody = null;
@@ -22,6 +24,11 @@ public class HeroRabit : MonoBehaviour {
 
 	public bool IsBig { get{ return isBig;} private set{ isBig = value;}}
 	public bool SuperRabit{ get { return isSuperRabit; } set{isSuperRabit = value; }}
+
+	void Awake(){
+		lastRabit = this;
+	}
+
 	// Use this for initialization
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
