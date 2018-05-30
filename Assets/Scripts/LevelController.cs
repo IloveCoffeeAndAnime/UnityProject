@@ -7,10 +7,6 @@ public class LevelController : MonoBehaviour {
 
 	Vector3 startingPosition;
 
-	public void setStartPosition (Vector3 pos){
-		this.startingPosition = pos;
-	}
-
 	void Awake()
 	{
 		current = this;
@@ -18,6 +14,8 @@ public class LevelController : MonoBehaviour {
 
 	public void OnRabitDeath (HeroRabit rabit){
 		rabit.transform.position = this.startingPosition;
+		SpriteRenderer renderer = rabit.GetComponent<SpriteRenderer> ();
+		renderer.flipX = false;
 	}
 
 	// Use this for initialization
@@ -27,6 +25,14 @@ public class LevelController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+	}
+
+	public void setStartPosition (Vector3 pos){
+		this.startingPosition = pos;
+	}
+
+	public void addCoins (int coins){
 		
 	}
 }

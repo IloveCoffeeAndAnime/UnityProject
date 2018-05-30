@@ -7,6 +7,7 @@ public class HeroRabit : MonoBehaviour {
 	public float speed = 3;
 	Rigidbody2D myBody = null;
 	Animator animator = null;
+	Transform heroParent = null;
 	bool isGrounded = false;
 	bool JumpActive = false;
 	float JumpTime = 0f;
@@ -17,6 +18,7 @@ public class HeroRabit : MonoBehaviour {
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
 		animator = GetComponent<Animator> ();
+		this.heroParent = this.transform.parent;
 		LevelController.current.setStartPosition (transform.position);
 	}
 	
@@ -58,10 +60,16 @@ public class HeroRabit : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
 		if(hit) {
 			isGrounded = true;
+			if(hit.transform != null
+				&& hit.transform.GetComponent<MovingPlatform>() != null){
+				//Приліпаємо до платформи
+				SetNewParent(this.transform, hit.transform);
+			}
 		} else {
 			isGrounded = false;
+			SetNewParent(this.transform, this.heroParent);
 		}
-		Debug.DrawLine (from, to, Color.red);
+		//Debug.DrawLine (from, to, Color.red);
 	}
 
 	void checkJump(){
@@ -88,6 +96,34 @@ public class HeroRabit : MonoBehaviour {
 		} else {
 			animator.SetBool ("jump", true);
 		}
+	}
+
+	static void SetNewParent(Transform obj, Transform new_parent) {
+		if(obj.transform.parent != new_parent) {
+			//Засікаємо позицію у Глобальних координатах
+			Vector3 pos = obj.transform.position;
+			//Встановлюємо нового батька
+			obj.transform.parent = new_parent;
+			//Після зміни батька координати кролика зміняться
+			//Оскільки вони тепер відносно іншого об’єкта
+			//повертаємо кролика в ті самі глобальні координати
+			obj.transform.position = pos;
+		}
+	}
+
+	public void DieWithAnimation(){
+		animator.SetBool("death",true);
+		//Debug.Log (animator.GetCurrentAnimatorStateInfo (0).length);
+		IEnumerator corountine = WaitForDeathAnimation ();
+		StartCoroutine(corountine);
+	}
+
+	IEnumerator WaitForDeathAnimation()
+	{
+		yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+		animator.SetBool("death",false);
+		yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+		LevelController.current.OnRabitDeath (this);
 	}
 }
 
