@@ -47,3 +47,6 @@ TagManager:
   - name: NotBackground
     uniqueID: 2177673165
     locked: 0
+  - name: UISortingLayer
+    uniqueID: 4092571219
+    locked: 0

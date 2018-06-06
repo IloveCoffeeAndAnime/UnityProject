@@ -84,6 +84,7 @@ public class HeroRabit : MonoBehaviour {
 		Vector3 to = this.transform.position + Vector3.down * 0.1f;
 		int layer_id = 1 << LayerMask.NameToLayer ("Ground");
 		RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
+		//Debug.DrawLine (from, to, Color.red);
 		if(hit) {
 			isGrounded = true;
 			if(hit.transform != null
@@ -95,7 +96,6 @@ public class HeroRabit : MonoBehaviour {
 			isGrounded = false;
 			SetNewParent(this.transform, this.heroParent);
 		}
-		//Debug.DrawLine (from, to, Color.red);
 	}
 
 	void checkJump(){

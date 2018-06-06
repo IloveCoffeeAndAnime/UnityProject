@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Crystal : Collectable {
+	public enum CrystalType{
+		Blue=0,
+		Green,
+		Red
+	}
 
+	public CrystalType type;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,6 +21,7 @@ public class Crystal : Collectable {
 	}
 
 	protected override void OnRabitHit(HeroRabit rabit) {
+		LevelController.current.addCrystal (type);
 		this.CollectedHide ();
 	}
 }

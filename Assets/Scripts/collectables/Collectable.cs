@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour {
 	bool hideAnimation = false;
+
 	// Use this for initialization
 	void Start () {
 		
