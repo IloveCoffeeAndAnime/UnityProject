@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroRabit : MonoBehaviour {
-	
+
 	public static HeroRabit lastRabit = null;
 
 	public float speed = 3;
 	Rigidbody2D myBody = null;
 	Animator animator = null;
 	SpriteRenderer spriteRenderer;
-	//Transform myTransform;
 	Transform heroParent = null;
 	bool isGrounded = false;
 	bool JumpActive = false;
@@ -21,6 +20,11 @@ public class HeroRabit : MonoBehaviour {
 	public float JumpSpeed = 2f;
 	float MaxSuperPowerTime = 4f;
 	float SuperPowerTimer = 0;
+
+	public AudioClip walkSound = null;
+	AudioSource walkSource = null;
+	public AudioClip landingSound = null;
+	AudioSource landingSource = null;
 
 	public bool IsBig { get{ return isBig;} private set{ isBig = value;}}
 	public bool SuperRabit{ get { return isSuperRabit; } set{isSuperRabit = value; }}
@@ -37,6 +41,11 @@ public class HeroRabit : MonoBehaviour {
 		this.heroParent = this.transform.parent;
 		LevelController.current.setStartPosition (transform.position);
 		this.SuperPowerTimer = this.MaxSuperPowerTime;
+		walkSource =  this.gameObject.AddComponent<AudioSource> ();
+		walkSource.clip = walkSound;
+		walkSource.loop = true;
+		landingSource = this.gameObject.AddComponent<AudioSource> ();
+		landingSource.clip = landingSound;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +59,14 @@ public class HeroRabit : MonoBehaviour {
 				this.SuperPowerTimer = this.MaxSuperPowerTime;
 				this.SuperRabit = false;
 			}
+		}
+		if (SoundManager.Instance.isSoundOn ()) {
+			if (animator.GetBool ("run") && !animator.GetBool ("jump")) {
+				if(!walkSource.isPlaying)
+					walkSource.Play ();
+			}
+			else
+				walkSource.Stop ();
 		}
 	}
 
@@ -143,6 +160,7 @@ public class HeroRabit : MonoBehaviour {
 	}
 		
 	public void DieWithAnimation(){
+		Debug.Log ("inside rabbit die");
 		animator.SetBool("death",true);
 		IEnumerator corountine = WaitForDeathAnimation ();
 		StartCoroutine(corountine);

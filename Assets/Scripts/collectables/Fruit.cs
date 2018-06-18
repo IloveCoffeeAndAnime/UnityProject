@@ -16,5 +16,7 @@ public class Fruit : Collectable {
 
 	protected override void OnRabitHit(HeroRabit rabit) {
 		this.CollectedHide ();
+		LevelController.current.addFruit (1);
+		LevelController.current.AddFruitToCollected (this.gameObject);
 	}
 }

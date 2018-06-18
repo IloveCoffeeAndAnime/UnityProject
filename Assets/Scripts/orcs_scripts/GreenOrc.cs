@@ -56,7 +56,7 @@ public class GreenOrc : Orc {
 	protected override void OnRabitCollision(HeroRabit rabbit){
 		myAnimator.SetTrigger ("attack");
 		float angle = angleBetweenMeAndRabbit (rabbit);
-		//Debug.Log ("Angle:"+ angle);
+		Debug.Log ("Angle:"+ angle);
 		if (Mathf.Abs(angle) >= 150 && Mathf.Abs(angle) <= 180 )
 			this.DieWithAnimation ();
 		else

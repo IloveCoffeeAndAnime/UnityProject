@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Orc : MonoBehaviour {
+	public AudioClip deathSound = null;
+	AudioSource deathSource = null;
+	public AudioClip attackSound = null;
+	AudioSource attackSource = null;
+
 	public enum Mode {
 		GoToA,
 		GoToB,
@@ -29,8 +34,11 @@ public abstract class Orc : MonoBehaviour {
 		myStartingPos = this.transform.position;
 		mySpriteRenderer = this.GetComponent<SpriteRenderer> ();
 		myBody = this.GetComponent<Rigidbody2D> ();
-		//Debug.Log (myBody);
 		myAnimator = this.GetComponent<Animator> ();
+		deathSource = this.gameObject.AddComponent<AudioSource> ();
+		deathSource.clip = deathSound;
+		attackSource = this.gameObject.AddComponent<AudioSource> ();
+		attackSource.clip = attackSound;
 	}
 	
 	// Update is called once per frame
@@ -39,8 +47,10 @@ public abstract class Orc : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){
+		if (SoundManager.Instance.isSoundOn ()) {
+			attackSource.Play ();
+		}
 		OnRabitCollision (HeroRabit.lastRabit);
-		
 	}
 
 	protected void SwitchModes(){
@@ -109,7 +119,10 @@ public abstract class Orc : MonoBehaviour {
 		return Mathf.Atan2 (dir.x, dir.y) * Mathf.Rad2Deg;
 	}
 
-	protected void DieWithAnimation(){
+	protected void  DieWithAnimation(){
+		if (SoundManager.Instance.isSoundOn()) {
+			deathSource.Play ();
+		}
 		StartCoroutine (WaitForDeathAnimationAndDisappear());
 	}
 

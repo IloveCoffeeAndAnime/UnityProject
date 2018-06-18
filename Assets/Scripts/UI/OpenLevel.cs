@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class OpenLevel : MonoBehaviour {
 
-	public int level;
+	public string scene;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,9 +16,6 @@ public class OpenLevel : MonoBehaviour {
 		
 	}
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (level == 1)
-			SceneManager.LoadScene ("Level01");
-		else 
-		SceneManager.LoadScene ("Level02");
+			SceneManager.LoadScene (scene);
 	}
 }

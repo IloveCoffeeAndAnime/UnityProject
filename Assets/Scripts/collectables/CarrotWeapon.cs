@@ -9,7 +9,7 @@ public class CarrotWeapon : Collectable {
 	//public Vector3 pointB;
 	// Use this for initialization
 	void Start () {
-		//StartCoroutine (destroyLater ());
+		StartCoroutine (destroyLater ());
 	}
 
 	// Update is called once per frame

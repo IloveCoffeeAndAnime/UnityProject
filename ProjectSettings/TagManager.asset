@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FruitCounterText
+  - CoinsCounterText
+  - CrystalOnWinWindow
+  - GoToChooseLevelBtn
+  - RestartLevelBtn
+  - Fruit
   layers:
   - Default
   - TransparentFX
@@ -49,4 +55,7 @@ TagManager:
     locked: 0
   - name: UISortingLayer
     uniqueID: 4092571219
+    locked: 0
+  - name: ButtonSortingLayer
+    uniqueID: 2175730793
     locked: 0
