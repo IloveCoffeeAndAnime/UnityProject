@@ -1655,7 +1655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -338, y: 100}
+  m_AnchoredPosition: {x: -226, y: 113.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797710502
@@ -1857,7 +1857,6 @@ GameObject:
   - component: {fileID: 1941046677}
   - component: {fileID: 1941046676}
   - component: {fileID: 1941046675}
-  - component: {fileID: 1941046678}
   - component: {fileID: 1941046679}
   m_Layer: 0
   m_Name: levelDoor2
@@ -1953,18 +1952,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1941046678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1941046674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2f9a05093dd0ef4abe3af925e8de3fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scene: Level02
 --- !u!114 &1941046679
 MonoBehaviour:
   m_ObjectHideFlags: 0

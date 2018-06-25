@@ -22,8 +22,8 @@ public class LevelDoorLook : MonoBehaviour {
 		levelInfo = LevelStat.ReadStat ("level"+level);
 		if (level - 1 > 0) {
 			isLocked = ! LevelStat.ReadStat ("level"+(level-1)).levelPassed;
-			Debug.Log ("prev elvel passed: "+ LevelStat.ReadStat ("level"+(level-1)).levelPassed);
-			Debug.Log ("isLocked inside awake"+isLocked);
+			//Debug.Log ("prev elvel passed: "+ LevelStat.ReadStat ("level"+(level-1)).levelPassed);
+			//Debug.Log ("isLocked inside awake"+isLocked);
 		}
 	}
 
@@ -40,7 +40,8 @@ public class LevelDoorLook : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		SceneManager.LoadScene ("Level0"+level);
+		if(!IsLocked())
+			SceneManager.LoadScene ("Level0"+level);
 	}
 
 	void setLevelPassedlabel(){
@@ -62,7 +63,7 @@ public class LevelDoorLook : MonoBehaviour {
 		}
 	}
 	void ifOpenedDeleteLock(){
-		Debug.Log ("inside ifOpenedDeleteLock: "+IsLocked ()+" on levrel"+level);
+	//	Debug.Log ("inside ifOpenedDeleteLock: "+IsLocked ()+" on levrel"+level);
 		if (!IsLocked () && levelLock != null) {
 			levelLock.GetComponent<SpriteRenderer> ().sortingLayerName = "Default";
 			levelLock.GetComponent<SpriteRenderer> ().sortingOrder = 0;
