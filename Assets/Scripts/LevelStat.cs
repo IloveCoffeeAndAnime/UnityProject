@@ -17,9 +17,10 @@ public class LevelStat{
 	}
 
 	public static LevelStat ReadStat(string name){
+		//PlayerPrefs.DeleteAll ();
 		string str = PlayerPrefs.GetString (name, null);
 		LevelStat stats = JsonUtility.FromJson<LevelStat> (str);
-		if (stats!=null) {
+		if (stats==null) {
 			stats = new LevelStat ();
 		}
 		return stats;

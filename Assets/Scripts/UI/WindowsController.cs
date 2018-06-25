@@ -71,11 +71,11 @@ public class WindowsController : MonoBehaviour {
 	}
 		
 	public void InitFruitAndCoinsInf(){
-		GameObject.FindGameObjectWithTag ("FruitCounterText").GetComponent<Text>().text =LevelController.current.getFruitsCount ()+ "/"+LevelController.fruitsOnLevel;
+		GameObject.FindGameObjectWithTag ("FruitCounterText").GetComponent<Text>().text =LevelController.current.getFruitsCount ()+ "/"+LevelController.current.fruitsOnLevel;
 		GameObject.FindGameObjectWithTag ("CoinsCounterText").GetComponent<Text>().text ="+"+ LevelController.current.getCoinsCount ();
 	}
 	public void initLostLevelWindow(){
-		SoundManager.Instance.PlaySoundIfOn (winSource);
+		SoundManager.Instance.PlaySoundIfOn (lostLevelSource);
 		SwitchCanvases (mainCanvas, lostLevelWindow);
 		InitCrystalInf ();
 		InitWindowBtns (lostLevelWindow);
@@ -84,10 +84,10 @@ public class WindowsController : MonoBehaviour {
 	public void initWinWindow(){
 		SoundManager.Instance.PlaySoundIfOn (winSource);
 		SwitchCanvases (mainCanvas, winWindow);
+		LevelController.current.saveLevel ();
 		InitCrystalInf ();
 		InitFruitAndCoinsInf ();
 		InitWindowBtns (winWindow);
-		LevelController.current.saveLevel ();
 	}
 
 }

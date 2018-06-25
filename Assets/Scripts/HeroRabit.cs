@@ -168,9 +168,9 @@ public class HeroRabit : MonoBehaviour {
 
 	IEnumerator WaitForDeathAnimation()
 	{
-		yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(0.5f/*animator.GetCurrentAnimatorStateInfo(0).length*/);
 		animator.SetBool("death",false);
-		yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(0.5f/*animator.GetCurrentAnimatorStateInfo(0).length*/);
 		LevelController.current.OnRabitDeath (this);
 	}
 }

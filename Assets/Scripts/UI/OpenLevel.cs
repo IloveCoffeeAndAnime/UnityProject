@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class OpenLevel : MonoBehaviour {
-
 	public string scene;
+	LevelDoorLook levelDoorLook;
+
+	void Awake(){
+	}
 	// Use this for initialization
 	void Start () {
-		
+		levelDoorLook = this.gameObject.GetComponent<LevelDoorLook> ();
 	}
 	
 	// Update is called once per frame
@@ -16,6 +19,8 @@ public class OpenLevel : MonoBehaviour {
 		
 	}
 	void OnTriggerEnter2D(Collider2D collider) {
-			SceneManager.LoadScene (scene);
+		if (!levelDoorLook.IsLocked ()) {
+			//SceneManager.LoadScene (scene);
+		}
 	}
 }

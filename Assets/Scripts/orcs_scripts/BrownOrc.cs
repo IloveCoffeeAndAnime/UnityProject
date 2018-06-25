@@ -15,8 +15,8 @@ public class BrownOrc : Orc {
 		float angle = angleBetweenMeAndRabbit (rabbit);
 		if (Mathf.Abs(angle) >= 150 && Mathf.Abs(angle) <= 180 )
 			this.DieWithAnimation ();
-		else
-			HeroRabit.lastRabit.DieWithAnimation ();
+		//else
+		//	HeroRabit.lastRabit.DieWithAnimation ();
 	}
 	// Update is called once per frame
 	void Update () {

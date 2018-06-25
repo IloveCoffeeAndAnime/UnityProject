@@ -34,6 +34,7 @@ public class CarrotWeapon : Collectable {
 	}
 	public void launch(float direction){
 		StartCoroutine (waitForThrowAniation());
+		this.GetComponent<SpriteRenderer> ().flipX = (direction < 0);
 		Rigidbody2D myRigidBody = this.GetComponent<Rigidbody2D>();
 		Vector2 vel = myRigidBody.velocity;
 		vel.x = speed * direction;

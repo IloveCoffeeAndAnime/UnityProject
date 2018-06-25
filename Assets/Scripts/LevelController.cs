@@ -11,9 +11,9 @@ public class LevelController : MonoBehaviour {
 	public GameObject coinsPanel;
 	public GameObject crystalPanel;
 	public GameObject fruitPanel;
-	public const int fruitsOnLevel = 11;
-	public const int livesOnLevel = 3;
-	public const int crystalsOnLevel = 3;
+	public int fruitsOnLevel = 15;
+	public int livesOnLevel = 3;
+	public int crystalsOnLevel = 3;
 	int lifeCount = 3;
 	int coinsCount = 0;
 	int crystalCount  = 0;
@@ -73,6 +73,7 @@ public class LevelController : MonoBehaviour {
 		SpriteRenderer renderer = rabit.GetComponent<SpriteRenderer> ();
 		renderer.flipX = false;
 		removeLife ();
+		rabit.BecomeSmaller ();
 	}
 		
 	public void RestartLevel(){
@@ -122,7 +123,7 @@ public class LevelController : MonoBehaviour {
 	public void addFruit(int fruits){
 		if (fruitPanel != null) {
 			fruitCount+=fruits;
-			fruitPanel.GetComponentInChildren<Text> ().text = fruitCount + " / " + fruitsOnLevel;
+			fruitPanel.GetComponentInChildren<Text> ().text = fruitCount + "/" + fruitsOnLevel;
 		}
 	}
 
@@ -159,6 +160,7 @@ public class LevelController : MonoBehaviour {
 	}
 
 	public void AddFruitToCollected(GameObject fruit){
+	//	Debug.Log ("LevelController: "+fruit);
 		levelSaver.AddFruitToCollected(fruit);
 	}
 
@@ -176,12 +178,19 @@ public class LevelController : MonoBehaviour {
 		}
 	}
 		
+	public bool IsFruitCollected(GameObject fruit){
+		return levelSaver.isFruitCollected(fruit);
+	}
+
 	private void showAlreadyCollectedFruit(){
 		if (levelSaver != null) {
-			GameObject[] fruitsOnLevel = GameObject.FindGameObjectsWithTag ("Fruit");
+			Debug.Log (levelSaver);
+			GameObject[] fruitsOnLevelArr = GameObject.FindGameObjectsWithTag ("Fruit");
+			Debug.Log (fruitsOnLevelArr.Length);
+			Debug.Log (levelSaver.collectedFruitCount());
 			GameObject currFruit;
-			for (int i = 0; i < fruitsOnLevel.Length; i++) {
-				currFruit = fruitsOnLevel [i];
+			for (int i = 0; i < fruitsOnLevelArr.Length; i++) {
+				currFruit = fruitsOnLevelArr [i];
 				if (levelSaver.isFruitCollected (currFruit))
 					currFruit.GetComponent<SpriteRenderer> ().color = new Color (1.0f, 1.0f, 1.0f, 0.5f);
 			}

@@ -23,7 +23,8 @@ public class MusicController : MonoBehaviour {
 	void Start () {
 		musicSource = gameObject.AddComponent<AudioSource>();
 		musicSource.clip = music;
-		musicBtn.onClick.AddListener(onMusicBtnClicked);
+		if(musicBtn !=null)
+			musicBtn.onClick.AddListener(onMusicBtnClicked);
 		musicSource.loop = true;
 		if (IsMusicOn ()) {
 			setMusicOn ();
@@ -37,7 +38,8 @@ public class MusicController : MonoBehaviour {
 		musicSource.Play ();
 		PlayerPrefs.SetInt ("music", 1);
 		PlayerPrefs.Save ();
-		musicBtn.image.sprite = musicOnSprite; 
+		if(musicBtn!=null && musicOnSprite !=null)
+			musicBtn.image.sprite = musicOnSprite; 
 	}
 
 	public void setMusicOff(){
@@ -45,7 +47,8 @@ public class MusicController : MonoBehaviour {
 		musicSource.Stop ();
 		PlayerPrefs.SetInt ("music",0);
 		PlayerPrefs.Save ();
-		musicBtn.image.sprite = musicOffSprite;
+		if(musicBtn!=null && musicOffSprite !=null)
+			musicBtn.image.sprite = musicOffSprite;
 	}
 
 	public void onMusicBtnClicked(){
