@@ -67,13 +67,14 @@ public class LevelController : MonoBehaviour {
 	}
 
 	public void OnRabitDeath (HeroRabit rabit){
-		if (SoundManager.Instance.isSoundOn ())
+		if (SoundManager.Instance.isSoundOn () && deathSound != null)
 			deathSource.Play ();
 		rabit.transform.position = this.startingPosition;
 		SpriteRenderer renderer = rabit.GetComponent<SpriteRenderer> ();
 		renderer.flipX = false;
 		removeLife ();
-		rabit.BecomeSmaller ();
+		if(rabit.IsBig)
+			rabit.BecomeSmaller ();
 	}
 		
 	public void RestartLevel(){
